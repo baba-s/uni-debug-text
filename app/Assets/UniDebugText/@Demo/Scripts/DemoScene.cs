@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 
 namespace UniDebugText.Demo
 {
@@ -26,7 +27,15 @@ namespace UniDebugText.Demo
 		/// </summary>
 		private void Start()
 		{
-			m_debugTextUI.SetDisp( 1, () => m_value.ToString() );
+			m_debugTextUI.SetDisp( 1, () =>
+			{
+				var sb = new StringBuilder();
+				sb.AppendLine( $"Frame: {m_value}" );
+				sb.AppendLine( $"Version: {Application.version}" );
+				sb.AppendLine( $"Debug: {Debug.isDebugBuild}" );
+				sb.Append( $"Unity Pro: {Application.HasProLicense()}" );
+				return sb.ToString();
+			} );
 		}
 
 		/// <summary>
